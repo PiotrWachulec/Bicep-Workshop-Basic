@@ -55,6 +55,23 @@ The naming convention for resources is always the subject of heated debate. In t
 
 After this workshop, you should be able to write basic and later more complex Bicep templates. Then it is good to have the better overview on how they can be designed. In the [Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/) you can find the document called: [Enterprise infrastructure as code using Bicep and Azure Container Registry](https://learn.microsoft.com/en-us/azure/architecture/guide/azure-resource-manager/advanced-templates/enterprise-infrastructure-bicep-container-registry) which describes the way of building reusable assets of templates.
 
+## Splatting
+
+In PowerShell, splatting is a technique that allows you to pass a collection of key-value pairs to a command or function as individual parameters. Instead of passing each parameter one by one, you can define a hashtable that contains the parameter names as keys and their corresponding values as values. This hashtable is then passed to the command or function using the @ symbol followed by the name of the hashtable.
+
+Example:
+```ps
+$params = @{
+  ComputerName = 'Server01'
+  Credential = (Get-Credential)
+  Path = 'C:\Temp\File.txt'
+}
+
+Get-Content @params
+```
+
+Splatting can be especially useful when you have a large number of parameters to pass to a command or function, or when you're building up a set of parameters dynamically. It can make your code easier to read and maintain, since you can see all the parameters in one place rather than scattered throughout your code.
+
 # Workshop
 
 ## Step 1 - Basic Bicep template
