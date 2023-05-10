@@ -99,3 +99,16 @@ resource myResource 'Microsoft.Storage/storageAccounts@2021-02-01' = {
   location: 'eastus'
 }
 ```
+
+## Step 2 - Basic Powershell deployment
+
+> The detailed instruction can be found in the documentation [Deploy resources with Bicep and Azure PowerShell](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-powershell)
+
+> Before running the deployment make sure that you logged into the Azure from Powershell (`Connect-AzAccount`) and set proper context (`Set-AzContext -SubscriptionId <SubscriptionID>`).
+
+For running basic deployment you need to run the `New-AzResourceGroupDeployment` cmdlet.
+
+```ps
+$rgName = "bicep-workshop-test"
+New-AzResourceGroupDeployment -Name "MyDeployment" -ResourceGroupName $rgName -Template './templates/template.bicep'
+```
