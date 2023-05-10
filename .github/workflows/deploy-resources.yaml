@@ -1,0 +1,29 @@
+name: Deploy Bicep Template
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Run Azure PowerShell script
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
+          ./scripts/Deploy-Resources.ps1 -ResourceGroupName "bicep-workshop-test"
+        azPSVersion: "latest"
+      env:
+        GITHUB_WORKSPACE: ${{ github.workspace }}
