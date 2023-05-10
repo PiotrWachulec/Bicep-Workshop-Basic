@@ -114,4 +114,32 @@ New-AzResourceGroupDeployment -Name "MyDeployment" -ResourceGroupName $rgName -T
 ```
 ## Step 3 - Deployments in Azure Portal
 
-When you are reviewing the resource group, you can find the 'Deployment' pane. It shows the deployment history, so you can check the detailed errors and so on. Due to this it is important to make deployment names unique. More information you can find in the [documentation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-history?tabs=azure-portal.)
+When you are reviewing the resource group, you can find the 'Deployment' pane. It shows the deployment history, so you can check the detailed errors and so on. Due to this, it is important to make deployment names unique. More information you can find in the [documentation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-history?tabs=azure-portal).
+
+## Step 4 - Preparing PS script for the deployment
+
+As we mentioned above, it would be good if the deployment names will be unique. Let's prepare a script for running the deployments of the resources:
+
+```ps
+param(
+    [string]$ResourceGroupName
+)
+
+# Generate a timestamp to use in the deployment name
+$timestamp = Get-Date -Format 'yyyyMMddHHmmss'
+
+# Construct the deployment name using the prefix and timestamp
+$deploymentName = "MyDeploment-$timestamp"
+
+# Deploy the template using the Azure PowerShell module
+New-AzResourceGroupDeployment -Name $deploymentName -ResourceGroupName $rgName -TemplateFile './templates/template.bicep'
+```
+
+And later, the script can be called in that way:
+
+```ps
+$rgName = "bicep-workshop-test"
+./scripts/Deploy-Resources.ps1 -ResourceGroupName $rgName
+```
+
+For now, it looks like overengineering, but it can be helpful later.
