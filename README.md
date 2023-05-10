@@ -143,3 +143,12 @@ $rgName = "bicep-workshop-test"
 ```
 
 For now, it looks like overengineering, but it can be helpful later.
+
+## Step 5 - Running and debugging PS scripts in VS Code
+
+> Demo
+
+Materials:
+
+- [Using Visual Studio Code for PowerShell Development](https://learn.microsoft.com/en-us/powershell/scripting/dev-cross-plat/vscode/using-vscode?view=powershell-7.3)
+- [https://devblogs.microsoft.com/scripting/debugging-powershell-script-in-visual-studio-code-part-1/](https://devblogs.microsoft.com/scripting/debugging-powershell-script-in-visual-studio-code-part-1/)
