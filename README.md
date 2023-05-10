@@ -112,3 +112,6 @@ For running basic deployment you need to run the `New-AzResourceGroupDeployment`
 $rgName = "bicep-workshop-test"
 New-AzResourceGroupDeployment -Name "MyDeployment" -ResourceGroupName $rgName -Template './templates/template.bicep'
 ```
+## Step 3 - Deployments in Azure Portal
+
+When you are reviewing the resource group, you can find the 'Deployment' pane. It shows the deployment history, so you can check the detailed errors and so on. Due to this it is important to make deployment names unique. More information you can find in the [documentation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-history?tabs=azure-portal.)
