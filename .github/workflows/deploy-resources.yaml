@@ -25,5 +25,3 @@ jobs:
         inlineScript: |
           ./scripts/Deploy-Resources.ps1 -ResourceGroupName "bicep-workshop-test"
         azPSVersion: "latest"
-      env:
-        GITHUB_WORKSPACE: ${{ github.workspace }}
