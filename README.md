@@ -152,3 +152,77 @@ Materials:
 
 - [Using Visual Studio Code for PowerShell Development](https://learn.microsoft.com/en-us/powershell/scripting/dev-cross-plat/vscode/using-vscode?view=powershell-7.3)
 - [https://devblogs.microsoft.com/scripting/debugging-powershell-script-in-visual-studio-code-part-1/](https://devblogs.microsoft.com/scripting/debugging-powershell-script-in-visual-studio-code-part-1/)
+
+## Step 6 - Writing basic GitHub workflow
+
+Assumption: you already have SPN with created secret and assigned roles.
+
+First, create JSON like below:
+```json
+{
+    "clientId": "<YOUR_CLIENT_ID>",
+    "clientSecret": "<YOUR_CLIENT_SECRET>",
+    "subscriptionId": "<YOUR_SUBSCRIPTION_ID>",
+    "tenantId": "<YOUR_TENANT_ID>"
+}
+```
+
+1. Open your GitHub repository and go to Settings.
+1. Select Security > Secrets and variables > Actions.
+1. Navigate to your GitHub repository.
+1. Click on the "Actions" tab and on "Enable actions for the repository".
+1. Click on the "Settings" tab.
+1. Click on "Secrets" in the left-hand menu.
+1. Click on "New repository secret".
+1. Enter the name of the secret, such as `AZURE_CREDENTIALS`, and the value of the secret, which is the service principal credentials in JSON format. The JSON should include the `clientId`, `clientSecret`, `subscriptionId`, and `tenantId` fields.
+1. Create `.github/workflows` directory
+1. Add to the newly file `deploy-resources.yaml`
+1. Fulfill the new file with the below code
+
+```yaml
+name: Deploy Bicep Template
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        enable-AzPSSession: true
+    
+    - name: Set up Azure PowerShell module
+      uses: azure/powershell@v1
+      with:
+        azPSVersion: latest
+        inlineScript: |
+          ./scripts/Deploy-Resources.ps1 -ResourceGroupName "bicep-workshop-test"
+```
+
+After that, commit changes and push the repository. The pipeline should be triggered automatically and the Bicep template will be deployed.
+
+Materials: 
+- [GitHub Action for Azure Login](https://github.com/marketplace/actions/azure-login)
+- [Quickstart: Deploy Bicep files by using GitHub Actions](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-github-action)
+- [Use the Azure login action with Azure CLI and PowerShell on Azure Stack Hub](https://learn.microsoft.com/en-us/azure-stack/user/ci-cd-github-action-login-cli)
+-[GitHub action for Azure PowerShell](https://github.com/marketplace/actions/azure-powershell-action)
+- [Quickstart for GitHub Actions](https://docs.github.com/en/actions/quickstart)
+
+---
+
+Thanks to the above step you set up the whole flow for IaC development and easily continue the development. You can quickly run the deployment from VS Code and all changes will be automatically deployed after pushing the repository to GitHub.
+
+In real life, it is a proper time and setup for the development of the required setup. In this workshop, we will deep dive into Bicep details.
+
+---
