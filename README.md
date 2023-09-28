@@ -45,15 +45,15 @@ Note that any files or directories specified in the exclude file will still be p
 
 ## The `.local` folder
 
-The `.local` folder is a concept where you have a dedicated folder for everything which you want to have in the project folder, but you don't want to commit to the repository. You can create a folder called `.local` and add it to the `.git/info/exclude`. Then you will be sure that everything which will land in this folder will not be committed to the repository. 
+The `.local` folder is a concept where you have a dedicated folder for everything which you want to have in the project folder, but you don't want to commit to the repository. You can create a folder called `.local` and add it to the `.git/info/exclude`. Then you will be sure that everything that will land in this folder will not be committed to the repository. 
 
 ## Abbreviation examples for Azure resources
 
 The naming convention for resources is always the subject of heated debate. In this document you have examples of abbreviations for Azure resources: [Abbreviation examples for Azure resources](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations).
 
-## More complex templates designs
+## More complex template designs
 
-After this workshop, you should be able to write basic and later more complex Bicep templates. Then it is good to have the better overview on how they can be designed. In the [Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/) you can find the document called: [Enterprise infrastructure as code using Bicep and Azure Container Registry](https://learn.microsoft.com/en-us/azure/architecture/guide/azure-resource-manager/advanced-templates/enterprise-infrastructure-bicep-container-registry) which describes the way of building reusable assets of templates.
+After this workshop, you should be able to write basic and later more complex Bicep templates. Then it is good to have a better overview of how they can be designed. In the [Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/) you can find the document called: [Enterprise infrastructure as code using Bicep and Azure Container Registry](https://learn.microsoft.com/en-us/azure/architecture/guide/azure-resource-manager/advanced-templates/enterprise-infrastructure-bicep-container-registry) which describes the way of building reusable assets of templates.
 
 ## Splatting
 
@@ -70,7 +70,7 @@ $params = @{
 Get-Content @params
 ```
 
-Splatting can be especially useful when you have a large number of parameters to pass to a command or function, or when you're building up a set of parameters dynamically. It can make your code easier to read and maintain, since you can see all the parameters in one place rather than scattered throughout your code.
+Splatting can be especially useful when you have a large number of parameters to pass to a command or function, or when you're building up a set of parameters dynamically. It can make your code easier to read and maintain since you can see all the parameters in one place rather than scattered throughout your code.
 
 # Workshop
 
@@ -89,7 +89,7 @@ As you can see above you have to use `resource` keyword.
 
 Optionally, you can add `existing` keyword if you are referring to the existing resource.
 
-Later between the `{}` you have to fulfill required properties.
+Later between the `{}` you have to fulfill the required properties.
 
 Example:
 
@@ -110,15 +110,16 @@ For running basic deployment you need to run the `New-AzResourceGroupDeployment`
 
 ```ps
 $rgName = "bicep-workshop-test"
-New-AzResourceGroupDeployment -Name "MyDeployment" -ResourceGroupName $rgName -Template './templates/template.bicep'
+New-AzResourceGroupDeployment -Name "MyDeployment" -ResourceGroupName $rgName -TemplateFile './templates/template.bicep'
 ```
+
 ## Step 3 - Deployments in Azure Portal
 
-When you are reviewing the resource group, you can find the 'Deployment' pane. It shows the deployment history, so you can check the detailed errors and so on. Due to this, it is important to make deployment names unique. More information you can find in the [documentation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-history?tabs=azure-portal).
+When you are reviewing the resource group, you can find the 'Deployment' pane. It shows the deployment history, so you can check the detailed errors and so on. Due to this, it is important to make deployment names unique. More information can be found in the [documentation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-history?tabs=azure-portal).
 
 ## Step 4 - Preparing PS script for the deployment
 
-As we mentioned above, it would be good if the deployment names will be unique. Let's prepare a script for running the deployments of the resources:
+As we mentioned above, it would be good if the deployment names are unique. Let's prepare a script for running the deployments of the resources:
 
 ```ps
 param(
@@ -170,9 +171,8 @@ First, create JSON like below:
 1. Open your GitHub repository and go to Settings.
 1. Select Security > Secrets and variables > Actions.
 1. Navigate to your GitHub repository.
-1. Click on the "Actions" tab and on "Enable actions for the repository".
 1. Click on the "Settings" tab.
-1. Click on "Secrets" in the left-hand menu.
+1. Click on "Secrets and variables / Actions" in the left-hand menu.
 1. Click on "New repository secret".
 1. Enter the name of the secret, such as `AZURE_CREDENTIALS`, and the value of the secret, which is the service principal credentials in JSON format. The JSON should include the `clientId`, `clientSecret`, `subscriptionId`, and `tenantId` fields.
 1. Create `.github/workflows` directory
@@ -214,9 +214,8 @@ After that, commit changes and push the repository. The pipeline should be trigg
 
 Materials: 
 - [GitHub Action for Azure Login](https://github.com/marketplace/actions/azure-login)
-- [Quickstart: Deploy Bicep files by using GitHub Actions](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-github-action)
-- [Use the Azure login action with Azure CLI and PowerShell on Azure Stack Hub](https://learn.microsoft.com/en-us/azure-stack/user/ci-cd-github-action-login-cli)
--[GitHub action for Azure PowerShell](https://github.com/marketplace/actions/azure-powershell-action)
+- [Quickstart: Deploy Bicep files by using GitHub Actions](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-github-actions)
+- [GitHub action for Azure PowerShell](https://github.com/marketplace/actions/azure-powershell-action)
 - [Quickstart for GitHub Actions](https://docs.github.com/en/actions/quickstart)
 
 ---
